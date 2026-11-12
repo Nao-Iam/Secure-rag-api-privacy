@@ -1,0 +1,16 @@
+# Optional: run the API in Docker. The API itself needs nothing else —
+# no database server, no API key. PostgreSQL/pgvector is a separate,
+# optional extension documented in the README; it is NOT in this file.
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - RAG_EMBEDDER=auto
+    volumes:
+      # Cache the downloaded embedding model between restarts.
+      - hf-cache:/root/.cache/huggingface
+
+volumes:
+  hf-cache:
